@@ -1,25 +1,23 @@
 NAME = philo
-CC = gcc
+SRC = argv_checker.c close.c eating.c init.c main.c mutex_utils.c philosophers.c solo_philo.c time_utils.c utils.c
+OBJ := $(SRC:.c=.o)
 CFLAGS = -Wall -Wextra -Werror
-
-SRCS = main.c \
-		utils.c \
-		# philo.c \
-		# init.c \
-
-OBJS = $(SRCS:.c=.o)
+CC = gcc
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: re fclean clean all
